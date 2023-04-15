@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.example.demo'
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.example.demo"
+        minSdk 24
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            //开启混淆开关
+            minifyEnabled false
+            //为BuildConfig.class文件添加新属性，指定主机服务器地址
+            buildConfigField 'String','SERVER',getSERVER('debug','SERVER')
+
+        }
+        release {
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String','SERVER',getSERVER('release','SERVER')
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+//引入依赖
+dependencies {
+    api rootProject.ext.support["appcompat-v7"]
+    api rootProject.ext.support["design"]
+    api rootProject.ext.support["junit"]
+    api rootProject.ext.support["test-ext"]
+    api rootProject.ext.support["test-espresso"]
+//    api rootProject.ext.support["constraintlayout"]
+//    api rootProject.ext.support["support-annotations"]
+
+
+    api rootProject.ext.dependencies["zxing-android-embedded"]
+    api rootProject.ext.dependencies.okhttp
+    api rootProject.ext.dependencies["logging-interceptor"]
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["adapter-rxjava"]
+    api rootProject.ext.dependencies["autodispose"]
+    api rootProject.ext.dependencies["autodispose-android"]
+    api rootProject.ext.dependencies["autodispose-lifecycle"]
+    api rootProject.ext.dependencies["autodispose-androidx-lifecycle"]
+    api rootProject.ext.dependencies["lottie"]
+    api rootProject.ext.dependencies["MPAndroidChart"]
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["compiler"]
+    api rootProject.ext.dependencies["PhotoView"]
+}
+
+
+//获取配置文件中的内容
+def getSERVER(String context,String Server) {
+    def SERVER = null
+    Properties properties = new Properties()
+    def proFile = file("src/main/filters/"+context+"/config.properties")
+    if(proFile.canRead()) {
+        properties.load(new FileInputStream(proFile))
+        if(properties != null) {
+            SERVER = properties[Server]
+        }
+    }
+    return SERVER
+}
