@@ -1,4 +1,4 @@
-package com.example.demo.base;
+package com.example.demo.base.mvp;
 
 import autodispose2.AutoDisposeConverter;
 
@@ -14,12 +14,6 @@ public interface IBaseView {
     void hideLoading();
     //请求错误
     default void onError(String message) {}
-
-
-    default void showLoading(String method) {}
-    default void hideLoading(String method) {}
-    default void onError(String method,String message) {}
-
     //解绑
     <T> AutoDisposeConverter<T> bindAutoDispose();
 

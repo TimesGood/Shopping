@@ -5,7 +5,11 @@ import androidx.lifecycle.Lifecycle;
 import autodispose2.AutoDispose;
 import autodispose2.AutoDisposeConverter;
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider;
-import com.example.demo.base.IBaseView;
+
+import com.example.demo.base.mvp.BasePresenter;
+import com.example.demo.base.mvp.IBaseModel;
+import com.example.demo.base.mvp.IBasePresenter;
+import com.example.demo.base.mvp.IBaseView;
 import android.os.Bundle;
 /**
  * 业务基类
@@ -13,7 +17,7 @@ import android.os.Bundle;
  * 基于MVP模式对M层与V层进行分离
  */
 
-public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> extends AppActivity
+public abstract class BaseActivity<P extends BasePresenter> extends AppActivity
         implements IBaseView{
     protected P mPresenter;
     @SuppressWarnings("unchecked")
@@ -21,11 +25,9 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         //创建相应的P层对象
         mPresenter = createPresenter();
-        //绑定V层
-        mPresenter.onAttach((V) this);
+        mPresenter.bindView(this);
         super.onCreate(savedInstanceState);
     }
-
     /**
      * 绑定对应的P层实体对象，继承此类的Activity都需要创建相应的P层来实例化
      * @return new Presenter实体对象

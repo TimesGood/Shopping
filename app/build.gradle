@@ -64,6 +64,7 @@ dependencies {
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["compiler"]
     api rootProject.ext.dependencies["PhotoView"]
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 }
 
 
