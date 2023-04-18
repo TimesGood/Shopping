@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.example.demo.ui.presenter;
 
 import com.example.demo.base.mvp.BasePresenter;
-import com.example.demo.base.mvp.IBaseModel;
-import com.example.demo.base.mvp.IBaseView;
+import com.example.demo.ui.contract.TestContract;
+import com.example.demo.ui.model.TestModel;
 
-public class TestPresenter extends BasePresenter<TestView,TestModel> {
+public class TestPresenter extends BasePresenter<TestContract.View, TestContract.Model> {
 
     public TestPresenter(TestModel testModel) {
         super(testModel);
