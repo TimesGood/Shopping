@@ -8,7 +8,7 @@ import com.example.demo.R;
 import com.example.demo.ui.contract.TestContract;
 import com.example.demo.ui.model.TestModel;
 import com.example.demo.ui.presenter.TestPresenter;
-import com.example.demo.base.ui.BaseActivity;
+import com.example.core.base.ui.BaseActivity;
 
 public class TestActivity extends BaseActivity<TestPresenter> implements TestContract.View {
 

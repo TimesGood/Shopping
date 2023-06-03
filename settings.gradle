@@ -20,3 +20,4 @@ dependencyResolutionManagement {
 //项目名称
 rootProject.name = "MVPApplication"
 include ':app'
+include ':core'

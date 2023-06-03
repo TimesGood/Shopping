@@ -1,6 +1,6 @@
 package com.example.demo.ui.presenter;
 
-import com.example.demo.base.mvp.BasePresenter;
+import com.example.core.base.mvp.BasePresenter;
 import com.example.demo.ui.contract.TestContract;
 import com.example.demo.ui.model.TestModel;
 
