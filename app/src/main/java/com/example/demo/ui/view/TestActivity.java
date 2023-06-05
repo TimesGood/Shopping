@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.core.permission.Permission;
+import com.example.core.permission.Permissions;
 import com.example.demo.R;
 import com.example.demo.ui.contract.TestContract;
 import com.example.demo.ui.model.TestModel;
@@ -48,6 +50,12 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestCon
     @Override
     public void onClick(View v) {
         mPresenter.test();
+        permission.applyPermission(new String[]{Permissions.CAMERA}, new Permission.ApplyListener() {
+            @Override
+            public void success() {
+                System.out.println("权限获取结果");
+            }
+        });
         super.onClick(v);
     }
 

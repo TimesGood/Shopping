@@ -20,7 +20,7 @@ android {
         debug {
             debuggable true
             //开启混淆开关
-            minifyEnabled false
+            minifyEnabled true
             //为BuildConfig.class文件添加新属性，指定主机服务器地址
             buildConfigField 'String','SERVER',getSERVER('debug','SERVER')
 

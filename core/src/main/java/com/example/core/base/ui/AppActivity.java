@@ -3,6 +3,7 @@ package com.example.core.base.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +23,9 @@ import com.example.core.action.*;
 import com.example.core.animation.BaseAnimation;
 import com.example.core.permission.Permission;
 import com.google.android.material.appbar.AppBarLayout;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * 业务基类
@@ -143,6 +148,11 @@ public abstract class AppActivity extends AppCompatActivity
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permission.handlerPermission(requestCode, permissions, grantResults);
     }
     /**
      * 如果当前的 Activity（singleTop 启动模式） 被复用时会回调

@@ -12,7 +12,9 @@ import com.example.core.util.IntentUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * 权限申请
@@ -20,6 +22,8 @@ import java.util.List;
 public class Permission {
     private final List<String> mList;
     private final Activity mActivity;
+    private static final int REQUEST_CODE = 1;
+    private ApplyListener listener;
 
     public Permission(Activity activity) {
         this.mList = new ArrayList<>();
@@ -32,10 +36,11 @@ public class Permission {
      * 如果有被拒绝的权限，将提示跳转到对应的手机权限获取设置界面
      */
     public void applyPermission(String[] permission,@NotNull ApplyListener applyListener){
+        this.listener = applyListener;
         String[] notApplyPermission = getNotApplyPermission(permission);
         String[] refuse = getRefuse(permission);
         if(notApplyPermission.length == 0) {
-            applyListener.applySuccess();
+            applyListener.success();
         }else if(refuse.length != 0){
             new MessageDialog.Builder(mActivity)
                         .setTitle("开启权限")
@@ -44,7 +49,34 @@ public class Permission {
                         .setListener(dialog -> IntentUtils.gotoPermission(mActivity))
                         .show();
         }else{
-            applyListener.apply(notApplyPermission);
+            mActivity.requestPermissions(notApplyPermission,REQUEST_CODE);
+        }
+    }
+
+    /**
+     * 处理权限请求结果
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    public void handlerPermission(int requestCode, String[] permissions, int[] grantResults){
+        if(requestCode == REQUEST_CODE){
+            List<String> refuse = new ArrayList<>();
+            for(int i:grantResults){
+                int result = grantResults[i];
+                if(result != PackageManager.PERMISSION_GRANTED) refuse.add(permissions[i]);
+            }
+            //有权限被拒绝
+            if(refuse.size() != 0) {
+                new MessageDialog.Builder(mActivity)
+                        .setTitle("温馨提醒")
+                        .setMessage("权限拒绝后某些功能将不能使用，为了使用完整功能请打开"+getPermissionHint(refuse))
+                        .setConfirm("去开启")
+                        .setListener(dialog -> IntentUtils.gotoPermission(mActivity))
+                        .show();
+                return;
+            }
+            listener.success();
         }
     }
     /**
@@ -73,8 +105,8 @@ public class Permission {
      * 权限获取回调
      */
     public interface ApplyListener {
-        void apply(String[] permission);
-        void applySuccess();
+        //授权成功
+        void success();
     }
 
     /**
@@ -86,7 +118,6 @@ public class Permission {
         if (permissions == null || permissions.isEmpty()) {
             return "获取权限失败，请手动授予权限";
         }
-
         List<String> hints = new ArrayList<>();
         for (String permission : permissions) {
             switch (permission) {
