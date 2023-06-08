@@ -49,6 +49,7 @@ dependencies {
 //    api rootProject.ext.support["support-annotations"]
 
     implementation project(path: ':core')
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
 }
 
 

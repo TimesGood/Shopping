@@ -22,6 +22,10 @@ import com.example.core.R;
 import com.example.core.action.*;
 import com.example.core.animation.BaseAnimation;
 import com.example.core.permission.Permission;
+import com.example.core.test.IActivity;
+import com.example.core.test.cache.Cache;
+import com.example.core.test.cache.CacheType;
+import com.example.core.test.util.ArmsUtils;
 import com.google.android.material.appbar.AppBarLayout;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,6 +39,7 @@ import java.util.Arrays;
 
 public abstract class AppActivity extends AppCompatActivity
         implements
+        IActivity,
         BundleAction,
         ActivityAction,
         ClickAction,
@@ -44,6 +49,7 @@ public abstract class AppActivity extends AppCompatActivity
     private Toast toast;//Toast广播
     protected Permission permission;//权限申请
     protected BaseAnimation mAnimation;//动画
+    private Cache<String, Object> mCache;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getContext();
@@ -51,10 +57,13 @@ public abstract class AppActivity extends AppCompatActivity
         //锁定竖屏
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        initLayout();
-        initView();
-        initData();
-        initSDK();
+//        initLayout();
+//        initView();
+//        initData();
+//        initSDK();
+        int layoutId = initView(savedInstanceState);
+        if(layoutId != 0){setContentView(layoutId);}
+        initData(savedInstanceState);
     }
 
     /**
@@ -91,22 +100,6 @@ public abstract class AppActivity extends AppCompatActivity
         hideTitle();
         setLeftIcon(R.drawable.back);
         setSupportActionBar(toolbar);
-    }
-    /**
-     * 初始化视图
-     */
-    protected abstract void initView();
-    protected abstract void initData();
-    /**
-     * 初始化一些类或第三方库
-     */
-    private void initSDK() {
-        if(permission == null) {
-            permission = new Permission(this);
-        }
-        if(mAnimation == null) {
-            mAnimation = new BaseAnimation();
-        }
     }
     /**
      * 获取界面中的Toolbar
@@ -233,5 +226,19 @@ public abstract class AppActivity extends AppCompatActivity
          * @param data              数据
          */
         void onActivityResult(int resultCode, @Nullable Intent data);
+    }
+
+    @Override
+    public boolean useFragment() {
+        return true;
+    }
+    @NonNull
+    @Override
+    public synchronized Cache<String, Object> provideCache() {
+        if (mCache == null) {
+            //noinspection unchecked
+            mCache = ArmsUtils.obtainAppComponentFromContext(this).cacheFactory().build(CacheType.ACTIVITY_CACHE);
+        }
+        return mCache;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.ui.contract;
 
+import android.app.Activity;
 import com.example.demo.base.BaseModel;
 import com.example.core.base.mvp.IBaseView;
 
@@ -9,5 +10,6 @@ public interface TestContract {
     }
     interface View extends IBaseView {
         void test();
+        Activity getActivity();
     }
 }

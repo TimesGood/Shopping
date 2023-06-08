@@ -10,6 +10,9 @@ ext {
             versionCode      : 1,
             versionName      : "1.0",
     ]
+    version = [
+            dagger2SdkVersion       : "2.26",
+    ]
 
     //support配置
     support = [
@@ -53,6 +56,12 @@ ext {
             "autodispose-androidx-lifecycle"       : "com.uber.autodispose2:autodispose-androidx-lifecycle:2.0.0",
             //二维码扫描库
             "zxing-android-embedded"               : "com.journeyapps:zxing-android-embedded:4.3.0",
+            //dagger2
+            "dagger2"                  : "com.google.dagger:dagger:${version["dagger2SdkVersion"]}",
+            "dagger2-android"          : "com.google.dagger:dagger-android:${version["dagger2SdkVersion"]}",
+            "dagger2-android-support"  : "com.google.dagger:dagger-android-support:${version["dagger2SdkVersion"]}",
+            "dagger2-compiler"         : "com.google.dagger:dagger-compiler:${version["dagger2SdkVersion"]}",
+            "dagger2-android-processor": "com.google.dagger:dagger-android-processor:${version["dagger2SdkVersion"]}",
     ]
 
 }
