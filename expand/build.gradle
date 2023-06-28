@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.example.expand'
+    compileSdk rootProject.ext.android["compileSdkVersion"]
+
+    defaultConfig {
+        minSdk rootProject.ext.android["minSdkVersion"]
+        targetSdk rootProject.ext.android["targetSdkVersion"]
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api rootProject.ext.support["appcompat-v7"]
+    api rootProject.ext.support["design"]
+    api rootProject.ext.support["junit"]
+    api rootProject.ext.support["test-ext"]
+    api rootProject.ext.support["test-espresso"]
+
+    implementation project(path: ':common')
+    api rootProject.ext.dependencies["MPAndroidChart"]
+    api rootProject.ext.dependencies["zxing-android-embedded"]
+    api rootProject.ext.dependencies["lottie"]
+}

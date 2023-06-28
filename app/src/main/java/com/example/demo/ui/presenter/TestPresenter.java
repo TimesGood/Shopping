@@ -1,13 +1,17 @@
 package com.example.demo.ui.presenter;
 
 import com.example.core.base.mvp.BasePresenter;
+import com.example.core.di.scope.ActivityScope;
 import com.example.demo.ui.contract.TestContract;
-import com.example.demo.ui.model.TestModel;
 
+import javax.inject.Inject;
+
+@ActivityScope
 public class TestPresenter extends BasePresenter<TestContract.View, TestContract.Model> {
 
-    public TestPresenter(TestModel testModel) {
-        super(testModel);
+    @Inject
+    public TestPresenter(TestContract.Model model, TestContract.View view) {
+        super(model, view);
     }
 
     public String test(){

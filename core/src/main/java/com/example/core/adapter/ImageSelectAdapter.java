@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.core.R;
-import com.example.core.base.ui.AppAdapter;
+import com.example.core.view.AppAdapter;
 
 import java.util.List;
 

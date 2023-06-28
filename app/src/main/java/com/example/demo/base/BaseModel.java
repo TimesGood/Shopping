@@ -1,8 +1,8 @@
 package com.example.demo.base;
 
-import com.example.core.base.mvp.IBaseModel;
+import com.example.core.back.IBaseModel;
 import com.example.core.net.APIService;
-import com.example.core.net.RetrofitClient;
+import com.example.core.back.RetrofitClient;
 
 public interface BaseModel extends IBaseModel {
     @Override

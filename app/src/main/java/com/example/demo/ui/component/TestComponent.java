@@ -16,8 +16,8 @@
 package com.example.demo.ui.component;
 
 
-import com.example.core.test.ActivityScope;
-import com.example.core.test.component.AppComponent;
+import com.example.core.di.scope.ActivityScope;
+import com.example.core.di.component.AppComponent;
 import com.example.demo.ui.contract.TestContract;
 import com.example.demo.ui.module.TestModule;
 import com.example.demo.ui.view.TestActivity;

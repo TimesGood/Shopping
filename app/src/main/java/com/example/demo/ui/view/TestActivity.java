@@ -7,20 +7,20 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.example.core.permission.Permission;
-import com.example.core.permission.Permissions;
-import com.example.core.test.component.AppComponent;
+
+import com.example.core.base.BaseActivity;
+import com.example.core.di.component.AppComponent;
+import com.example.demo.permission.Permission;
 import com.example.demo.R;
 import com.example.demo.ui.component.DaggerTestComponent;
 import com.example.demo.ui.contract.TestContract;
-import com.example.demo.ui.model.TestModel;
 import com.example.demo.ui.presenter.TestPresenter;
-import com.example.core.base.ui.BaseActivity;
+
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
-public class TestActivity extends BaseActivity<TestPresenter> implements TestContract.View {
+public class TestActivity extends BaseActivity<TestPresenter> implements TestContract.View , View.OnClickListener {
 
     Button btn_test;
     @Inject
@@ -34,33 +34,6 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestCon
     @Override
     public void hideLoading() {
 
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_test;
-    }
-
-//    @Override
-//    protected void initView() {
-//
-//    }
-//
-//    @Override
-//    protected void initData() {
-//
-//    }
-
-    @Override
-    protected TestPresenter createPresenter() {
-        return new TestPresenter(new TestModel());
-    }
-
-    @Override
-    public void onClick(View v) {
-        System.out.println(permission);
-        mPresenter.test();
-        super.onClick(v);
     }
 
     @Override
@@ -79,17 +52,26 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestCon
     }
 
     @Override
-    public int initView(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public int getLayoutId() {
         return R.layout.activity_test;
+    }
+
+    @Override
+    public void initView(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
     }
 
     @Override
     public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         btn_test = findViewById(R.id.btn_test);
-        setOnClickListener(btn_test);
+        btn_test.setOnClickListener(this);
     }
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    @Override
+    public void onClick(View view) {
+        mPresenter.test();
     }
 }

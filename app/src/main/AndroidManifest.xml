@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-            android:name="com.example.core.test.BaseApplication"
+            android:name="com.example.core.base.BaseApplication"
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"
             android:fullBackupContent="@xml/backup_rules"
@@ -29,6 +29,9 @@
                 android:exported="false">
 
         </activity>
+<!--        <meta-data-->
+<!--            android:name="com.example.core.test.config.GlobalConfiguration"-->
+<!--            android:value="ConfigModule" />-->
     </application>
 
 </manifest>

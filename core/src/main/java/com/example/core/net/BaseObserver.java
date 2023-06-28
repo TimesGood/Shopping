@@ -1,7 +1,7 @@
 package com.example.core.net;
 
 
-import com.example.core.common.api.CommonResult;
+import com.example.core.back.api.CommonResult;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;

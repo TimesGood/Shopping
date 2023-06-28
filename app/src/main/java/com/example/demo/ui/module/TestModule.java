@@ -16,12 +16,13 @@
 package com.example.demo.ui.module;
 
 
-import com.example.core.permission.Permission;
+import com.example.core.back.permission.Permission;
 import com.example.demo.ui.contract.TestContract;
+import com.example.demo.ui.model.TestModel;
+
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-
-import javax.inject.Scope;
 
 /**
  * ================================================
@@ -32,4 +33,6 @@ public abstract class TestModule {
     static Permission providePermissions(TestContract.View view) {
         return new Permission(view.getActivity());
     }
+    @Binds
+    abstract TestContract.Model bindUserModel(TestModel model);
 }

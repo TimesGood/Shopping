@@ -40,6 +40,9 @@ android {
 }
 //引入依赖
 dependencies {
+    implementation project(path: ':core')
+    implementation project(path: ':expand')
+    implementation project(path: ':common')
     api rootProject.ext.support["appcompat-v7"]
     api rootProject.ext.support["design"]
     api rootProject.ext.support["junit"]
@@ -48,7 +51,6 @@ dependencies {
 //    api rootProject.ext.support["constraintlayout"]
 //    api rootProject.ext.support["support-annotations"]
 
-    implementation project(path: ':core')
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
 }
 

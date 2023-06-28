@@ -1,7 +1,7 @@
 package com.example.core.net;
 
 
-import com.example.core.common.api.CommonResult;
+import com.example.core.back.api.CommonResult;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.RequestBody;
