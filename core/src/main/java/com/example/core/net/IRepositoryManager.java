@@ -3,13 +3,13 @@ package com.example.core.net;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.example.core.back.IBaseModel;
+import com.example.core.base.mvp.BaseModel;
 import retrofit2.Retrofit;
 
 /**
  * ================================================
  * 用来管理网络请求层,以及数据缓存层
- * 提供给 {@link IBaseModel} 必要的 Api 做数据处理
+ * 提供给 {@link BaseModel} 必要的 Api 做数据处理
 
  * ================================================
  */

@@ -39,7 +39,7 @@ public abstract class AppFragment<A extends AppActivity>  extends Fragment imple
 
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(mActivity.getLayoutId(), container, false);
+        mView = inflater.inflate(this.getLayoutId(), container, false);
         return mView;
     }
     @NonNull

@@ -9,10 +9,10 @@ public class BaseModel implements IModel{
     }
 
     /**
-     * 在框架中 {@link BasePresenter#onDestroy()} 时会默认调用 {@link IModel#onDestroy()}
+     * 在框架中 {@link BasePresenter#onDetach()} ()} 时会默认调用 {@link IModel#onDetach()}
      */
     @Override
-    public void onDestroy() {
+    public void onDetach() {
         mRepositoryManager = null;
     }
 }

@@ -6,7 +6,7 @@ import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
-import com.example.core.util.IntentUtils;
+import com.example.common.util.IntentUtils;
 import com.example.ext.dialog.MessageDialog;
 
 import org.jetbrains.annotations.NotNull;

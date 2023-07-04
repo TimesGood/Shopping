@@ -57,6 +57,11 @@ public interface IFragment {
      * @param appComponent
      */
     void setupFragmentComponent(@NonNull AppComponent appComponent);
+    /**
+     * 绑定Layout
+     * @return
+     */
+    int getLayoutId();
 
     /**
      * 是否使用 EventBus

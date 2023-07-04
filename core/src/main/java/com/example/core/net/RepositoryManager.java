@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.example.core.back.IBaseModel;
+import com.example.core.base.mvp.BaseModel;
 import com.example.core.cache.Cache;
 import com.example.core.cache.CacheType;
 import com.example.core.util.Preconditions;
@@ -19,7 +19,7 @@ import java.lang.reflect.Proxy;
 /**
  * ================================================
  * 用来管理网络请求层,以及数据缓存层,以后可能添加数据库请求层
- * 提供给 {@link IBaseModel} 层必要的 Api 做数据处理
+ * 提供给 {@link BaseModel} 层必要的 Api 做数据处理
  * ================================================
  */
 @SuppressWarnings("unchecked")

@@ -37,4 +37,6 @@ dependencies {
     api rootProject.ext.dependencies["MPAndroidChart"]
     api rootProject.ext.dependencies["zxing-android-embedded"]
     api rootProject.ext.dependencies["lottie"]
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["PhotoView"]
 }

@@ -23,7 +23,7 @@
         app:lottie_loop="true"
         tools:src="@drawable/status_empty_ic" />
 
-    <com.example.demo.customui.view.SmartTextView
+    <com.example.ext.view.SmartTextView
         android:id="@+id/iv_status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
