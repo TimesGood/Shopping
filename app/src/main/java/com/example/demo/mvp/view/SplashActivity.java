@@ -5,7 +5,6 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.demo.R;
 
 import java.util.Timer;
@@ -30,4 +29,5 @@ public class SplashActivity extends AppCompatActivity {
         };
         timer.schedule(task,3000);
     }
+
 }

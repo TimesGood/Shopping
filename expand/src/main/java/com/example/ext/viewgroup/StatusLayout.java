@@ -141,7 +141,7 @@ public final class StatusLayout extends FrameLayout {
      */
     private void initLayout() {
 
-        mMainLayout = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.widget_status_layout, this, false);
+        mMainLayout = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.fragment_status, this, false);
 
         mLottieView = mMainLayout.findViewById(R.id.iv_status_icon);
         mTextView = mMainLayout.findViewById(R.id.iv_status_text);

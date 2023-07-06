@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.demo.customui.viewgroup.RatioFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                      xmlns:tools="http://schemas.android.com/tools"
-                                                      android:layout_width="match_parent"
-                                                      android:layout_height="wrap_content"
-                                                      app:sizeRatio="1:1">
+<com.example.ext.viewgroup.RatioFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:sizeRatio="1:1">
 
     <ImageView
         android:id="@+id/iv_image_select_image"
@@ -12,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:scaleType="centerCrop"
-        tools:src="@drawable/apply_img" />
+        tools:src="@drawable/ic_back" />
 
     <FrameLayout
         android:id="@+id/fl_image_select_check"
@@ -32,8 +33,8 @@
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            app:buttonCompat="@drawable/checkbox_selector" />
+            app:buttonCompat="@drawable/selector_checkbox" />
 
     </FrameLayout>
 
-</com.example.demo.customui.viewgroup.RatioFrameLayout>
+</com.example.ext.viewgroup.RatioFrameLayout>

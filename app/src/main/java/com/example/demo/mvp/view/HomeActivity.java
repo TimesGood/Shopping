@@ -27,7 +27,6 @@ public class HomeActivity extends BaseActivity implements NavigationBarView.OnIt
     private BottomNavigationView home_navigation;
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
-
     }
 
     @Override

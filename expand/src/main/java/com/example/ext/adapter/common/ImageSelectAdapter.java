@@ -30,7 +30,7 @@ public final class ImageSelectAdapter extends AppAdapter<String> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(R.layout.image_select_item);
+        return new ViewHolder(R.layout.adapter_image_select);
     }
 
     private final class ViewHolder extends AppAdapter<?>.ViewHolder {

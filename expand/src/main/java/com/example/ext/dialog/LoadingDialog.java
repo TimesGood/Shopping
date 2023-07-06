@@ -14,7 +14,7 @@ public class LoadingDialog {
         private OnListener mListener;
         public Builder(Context context) {
             super(context);
-            setCustomView(R.layout.loading_dialog);
+            setCustomView(R.layout.dialog_loading);
         }
 
         public Builder setListener(OnListener listener) {
