@@ -33,8 +33,7 @@ public class Page1Fragment extends AppFragment{
     }
 
     @Override
-    public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     }
 
     @Override

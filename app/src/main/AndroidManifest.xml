@@ -3,6 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 读取文件权限 -->
 
     <application
             android:name="com.example.core.base.BaseApplication"
@@ -33,6 +34,7 @@
                 android:name=".mvp.view.TestActivity"
                 android:exported="false">
         </activity>
+        <activity android:name=".mvp.view.ImageSelectActivity"/>
 <!--        <meta-data-->
 <!--            android:name="com.example.core.test.config.GlobalConfiguration"-->
 <!--            android:value="ConfigModule" />-->

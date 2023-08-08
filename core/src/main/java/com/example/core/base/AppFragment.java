@@ -2,10 +2,12 @@ package com.example.core.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.service.autofill.OnClickAction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -40,6 +42,7 @@ public abstract class AppFragment<A extends AppActivity>  extends Fragment imple
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(this.getLayoutId(), container, false);
+        initView(inflater,container,savedInstanceState);
         return mView;
     }
     @NonNull
@@ -50,6 +53,9 @@ public abstract class AppFragment<A extends AppActivity>  extends Fragment imple
             mCache = AppComponentUtils.obtainAppComponentFromContext(mActivity).cacheFactory().build(CacheType.ACTIVITY_CACHE);
         }
         return mCache;
+    }
+    public <V extends View> V findViewById(@IdRes int id){
+        return mView.findViewById(id);
     }
     @Override
     public <P> AutoDisposeConverter<P> bindAutoDispose() {
