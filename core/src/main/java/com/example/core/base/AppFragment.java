@@ -24,6 +24,9 @@ import autodispose2.AutoDispose;
 import autodispose2.AutoDisposeConverter;
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider;
 
+/**
+ * 实现IFragment，规范代码结构
+ */
 public abstract class AppFragment<A extends AppActivity>  extends Fragment implements IFragment {
 
     private A mActivity;

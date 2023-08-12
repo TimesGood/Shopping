@@ -5,6 +5,9 @@ import android.app.ActivityManager;
 import android.content.Context;
 import androidx.fragment.app.Fragment;
 
+import com.example.core.di.component.AppComponent;
+import com.example.core.net.RepositoryManager;
+
 
 /**
  * ================================================
@@ -12,9 +15,6 @@ import androidx.fragment.app.Fragment;
  * 从而为不同的模块构建不同的缓存策略
  *
  * @see Cache.Factory#build(CacheType)
- * Created by JessYan on 25/09/2017 18:05
- * <a href="mailto:jess.yan.effort@gmail.com">Contact me</a>
- * <a href="https://github.com/JessYanCoding">Follow me</a>
  * ================================================
  */
 public interface CacheType {

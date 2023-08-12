@@ -21,6 +21,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+
+import com.example.core.base.BaseFragment;
 import com.example.core.base.delegate.ConfigModule;
 import com.example.core.base.IActivity;
 import com.example.core.cache.Cache;

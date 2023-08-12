@@ -17,6 +17,9 @@ import autodispose2.AutoDispose;
 import autodispose2.AutoDisposeConverter;
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider;
 
+/**
+ * 实现IActivity，规范代码结构
+ */
 public abstract class AppActivity extends AppCompatActivity implements IActivity {
     private Cache<String, Object> mCache;
 

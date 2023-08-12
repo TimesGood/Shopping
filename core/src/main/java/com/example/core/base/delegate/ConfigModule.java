@@ -15,9 +15,11 @@
  */
 package com.example.core.base.delegate;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.core.di.module.GlobalConfigModule;

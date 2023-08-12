@@ -33,6 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * AppDelegate代理Application的生命周期
+ * 当遇到有些第三方库需要继承于它的Application时，可参照 {@link BaseApplication} 自定义Application
+ * 然后在相应的生命周期执行AppDelegate的方法即可保证框架正常运行
  */
 public class AppDelegate implements App, AppLifecycles {
 
@@ -66,6 +69,7 @@ public class AppDelegate implements App, AppLifecycles {
     @Override
     public void onCreate(@NonNull Application application) {
         this.mApplication = application;
+        //构建Dagger组件化
         mAppComponent = DaggerAppComponent
                 .builder()
                 .application(application)//提供application

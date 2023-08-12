@@ -21,14 +21,17 @@ import androidx.annotation.NonNull;
 
 import com.example.core.di.component.AppComponent;
 import com.example.core.base.delegate.AppDelegate;
+import com.example.core.util.AppComponentUtils;
 import com.example.core.util.Preconditions;
 
+/**
+ * 框架拓展，如果想研究本框架的设计流程，请从该类开始着手
+ */
 public class BaseApplication extends Application implements App {
     private AppDelegate mAppDelegate;
 
     /**
      * 这里会在 {@link BaseApplication#onCreate} 之前被调用,可以做一些较早的初始化
-     * 常用于 MultiDex 以及插件化框架的初始化
      */
     @Override
     protected void attachBaseContext(Context base) {
@@ -63,7 +66,7 @@ public class BaseApplication extends Application implements App {
      * 将 {@link AppComponent} 返回出去, 供其它地方使用, {@link AppComponent} 接口中声明的方法所返回的实例, 在 {@link #getAppComponent()} 拿到对象后都可以直接使用
      *
      * @return AppComponent
-     * @see ArmsUtils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
+     * @see AppComponentUtils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
      */
     @NonNull
     @Override

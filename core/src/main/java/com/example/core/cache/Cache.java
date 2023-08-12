@@ -2,6 +2,7 @@ package com.example.core.cache;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.example.core.di.module.GlobalConfigModule;
 
 import java.util.Set;
 

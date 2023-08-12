@@ -36,7 +36,7 @@ import javax.inject.Singleton;
 public interface AppComponent {
 
     /**
-     * 创建缓存的工厂
+     * 缓存的工厂
      * @return
      */
     Cache.Factory cacheFactory();
