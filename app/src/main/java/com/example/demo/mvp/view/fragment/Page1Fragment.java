@@ -45,14 +45,4 @@ public class Page1Fragment extends AppFragment{
     public void setData(@Nullable Object data) {
 
     }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
 }

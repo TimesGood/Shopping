@@ -9,6 +9,6 @@ public interface IView {
     void hideLoading();
     //请求错误
     default void onError(String message) {}
-    //解绑
+    //绑定生命周期
     <T> AutoDisposeConverter<T> bindAutoDispose();
 }

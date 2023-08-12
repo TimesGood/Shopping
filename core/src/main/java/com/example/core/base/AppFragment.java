@@ -24,7 +24,7 @@ import autodispose2.AutoDispose;
 import autodispose2.AutoDisposeConverter;
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider;
 
-public abstract class AppFragment<A extends AppActivity>  extends Fragment implements IFragment ,IView {
+public abstract class AppFragment<A extends AppActivity>  extends Fragment implements IFragment {
 
     private A mActivity;
     private View mView;
@@ -56,11 +56,6 @@ public abstract class AppFragment<A extends AppActivity>  extends Fragment imple
     }
     public <V extends View> V findViewById(@IdRes int id){
         return mView.findViewById(id);
-    }
-    @Override
-    public <P> AutoDisposeConverter<P> bindAutoDispose() {
-        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider
-                .from(this, Lifecycle.Event.ON_DESTROY));
     }
 
 }

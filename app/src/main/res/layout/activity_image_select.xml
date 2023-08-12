@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".mvp.view.ImageSelectActivity">
+    <include layout="@layout/include_title"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,7 +28,7 @@
         </com.example.ext.viewgroup.StatusLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_image_select_floating"
+            android:id="@+id/camera_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
@@ -35,7 +36,8 @@
             android:layout_marginBottom="20dp"
             app:borderWidth="0px"
             app:elevation="1dp"
-            app:fabSize="normal" />
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_camera"/>
     </FrameLayout>
 
 </LinearLayout>

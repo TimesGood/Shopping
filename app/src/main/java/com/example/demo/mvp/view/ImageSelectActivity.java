@@ -1,15 +1,20 @@
 package com.example.demo.mvp.view;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.core.ThreadPoolManager;
@@ -17,6 +22,7 @@ import com.example.core.base.AppActivity;
 import com.example.core.di.component.AppComponent;
 import com.example.demo.R;
 import com.example.demo.dialog.AlbumDialog;
+import com.example.demo.mvp.model.entity.AlbumInfo;
 import com.example.ext.action.HandlerAction;
 import com.example.ext.adapter.BaseAdapter;
 import com.example.ext.adapter.common.ImageSelectAdapter;
@@ -26,12 +32,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 图片浏览+选择图片功能
  */
 public final class ImageSelectActivity extends AppActivity
         implements Runnable, HandlerAction,
+        View.OnClickListener,
         BaseAdapter.OnItemClickListener,
         BaseAdapter.OnItemLongClickListener,
         BaseAdapter.OnChildClickListener {
@@ -46,6 +54,7 @@ public final class ImageSelectActivity extends AppActivity
     private final ArrayList<String> mAllImage = new ArrayList<>();
     /** 图片专辑 */
     private final HashMap<String, List<String>> mAllAlbum = new HashMap<>();
+    private Toolbar toolbar;
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
 
@@ -59,7 +68,9 @@ public final class ImageSelectActivity extends AppActivity
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
         mRecyclerView = findViewById(R.id.rv_image_select_list);
-        mFloatingView = findViewById(R.id.fab_image_select_floating);
+        mFloatingView = findViewById(R.id.camera_btn);
+        toolbar = findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -71,16 +82,49 @@ public final class ImageSelectActivity extends AppActivity
         mRecyclerView.setAdapter(mAdapter);
         //开启线程池加载图片列表
         ThreadPoolManager.getInstance().execute(this);
+        mFloatingView.setOnClickListener(this);
     }
-
     @Override
-    public void showLoading() {
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_img_group,menu);
+        return true;
     }
-
     @Override
-    public void hideLoading() {
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.select_album) {
+            if (mAllImage.isEmpty()) return super.onOptionsItemSelected(item);
+            ArrayList<AlbumInfo> data = new ArrayList<>(mAllAlbum.size() + 1);
+            int count = 0;
+            Set<String> keys = mAllAlbum.keySet();
+            for (String key : keys) {
+                List<String> list = mAllAlbum.get(key);
+                if (list != null && !list.isEmpty()) {
+                    count += list.size();
+                    data.add(new AlbumInfo(list.get(0), key, String.format(getString(R.string.menu_img_count), list.size()), mAdapter.getData() == list));
+                }
+            }
+            data.add(0, new AlbumInfo(mAllImage.get(0), getString(R.string.menu_img_group), String.format(getString(R.string.menu_img_count), count), mAdapter.getData() == mAllImage));
+            if (mAlbumDialog == null) {
+                mAlbumDialog = new AlbumDialog.Builder(this)
+                        .setListener((dialog, position, bean) -> {
+//                            setMenuTitle(0,bean.getName());
+                            // 滚动回第一个位置
+                            mRecyclerView.scrollToPosition(0);
+                            if (position == 0) {
+                                mAdapter.setData(mAllImage);
+                            } else {
+                                mAdapter.setData(mAllAlbum.get(bean.getName()));
+                            }
+                            // 执行列表动画
+//                            mRecyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.from_bottom_layout));
+//                            mRecyclerView.scheduleLayoutAnimation();
+                        });
+            }
+            mAlbumDialog.setData(data)
+                    .show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -161,5 +205,9 @@ public final class ImageSelectActivity extends AppActivity
             // 设置新的列表数据
             mAdapter.setData(mAllImage);
         }, 500);
+    }
+
+    @Override
+    public void onClick(View view) {
     }
 }

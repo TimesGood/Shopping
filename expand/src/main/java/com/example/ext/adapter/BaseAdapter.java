@@ -193,6 +193,12 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder> extends 
      */
     public interface OnItemClickListener {
 
+        /**
+         * 条目点击事件
+         * @param recyclerView
+         * @param v
+         * @param position
+         */
         void onItemClick(RecyclerView recyclerView, View v, int position);
     }
 
@@ -200,6 +206,13 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder> extends 
      * 条目长按监听
      */
     public interface OnItemLongClickListener{
+        /**
+         * 条目长按事件
+         * @param recyclerView
+         * @param v
+         * @param position
+         * @return
+         */
         boolean onItemLongClick(RecyclerView recyclerView, View v, int position);
     }
 
@@ -207,6 +220,12 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder> extends 
      * 条目子View的点击监听
      */
     public interface OnChildClickListener {
+        /**
+         * 条目子控件的点击事件
+         * @param recyclerView
+         * @param v
+         * @param position
+         */
         void onChildClick(RecyclerView recyclerView, View v, int position);
     }
 
@@ -214,6 +233,13 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder> extends 
      * 条目子View的长按监听
      */
     public interface OnChildLongClickListener {
+        /**
+         * 条目子控件的长按事件
+         * @param recyclerView
+         * @param v
+         * @param position
+         * @return
+         */
         boolean onChildLongClick(RecyclerView recyclerView, View v, int position);
     }
 

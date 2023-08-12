@@ -17,7 +17,7 @@ import autodispose2.AutoDispose;
 import autodispose2.AutoDisposeConverter;
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider;
 
-public abstract class AppActivity extends AppCompatActivity implements IActivity, IView {
+public abstract class AppActivity extends AppCompatActivity implements IActivity {
     private Cache<String, Object> mCache;
 
     @Override
@@ -30,10 +30,6 @@ public abstract class AppActivity extends AppCompatActivity implements IActivity
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
     @NonNull
     @Override
     public synchronized Cache<String, Object> provideCache() {
@@ -42,11 +38,6 @@ public abstract class AppActivity extends AppCompatActivity implements IActivity
             mCache = AppComponentUtils.obtainAppComponentFromContext(this).cacheFactory().build(CacheType.ACTIVITY_CACHE);
         }
         return mCache;
-    }
-    @Override
-    public <P> AutoDisposeConverter<P> bindAutoDispose() {
-        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider
-                .from(this, Lifecycle.Event.ON_DESTROY));
     }
 
     @Override

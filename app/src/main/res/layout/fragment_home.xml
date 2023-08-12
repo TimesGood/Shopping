@@ -5,11 +5,17 @@
     <com.example.ext.viewgroup.DampNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
+        <com.example.ext.viewgroup.RecyclerViewDecorator
+            android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="测试"
-            android:id="@+id/test_button"/>
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+        </com.example.ext.viewgroup.RecyclerViewDecorator>
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="测试"-->
+<!--            android:id="@+id/test_button"/>-->
 <!--        <TextView-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
