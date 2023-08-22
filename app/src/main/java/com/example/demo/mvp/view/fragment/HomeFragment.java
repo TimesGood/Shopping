@@ -86,6 +86,8 @@ public class HomeFragment extends AppFragment implements BaseAdapter.OnItemClick
             case 0:
                 startActivity(new Intent(getContext(), ImageSelectActivity.class));
                 break;
+            case 1:
+                break;
         }
     }
 }

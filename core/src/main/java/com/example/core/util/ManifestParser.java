@@ -42,20 +42,20 @@ public final class ManifestParser {
         try {
             clazz = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException("Unable to find ConfigModule implementation", e);
+            throw new IllegalArgumentException("找不到ConfigModule的实现类，请确认实现类是否被混淆", e);
         }
 
         Object module;
         try {
             module = clazz.newInstance();
         } catch (InstantiationException e) {
-            throw new RuntimeException("Unable to instantiate ConfigModule implementation for " + clazz, e);
+            throw new RuntimeException("无法实例化ConfigModule实现类->" + clazz, e);
         } catch (IllegalAccessException e) {
-            throw new RuntimeException("Unable to instantiate ConfigModule implementation for " + clazz, e);
+            throw new RuntimeException("无法实例化ConfigModule实现类->" + clazz, e);
         }
 
         if (!(module instanceof ConfigModule)) {
-            throw new RuntimeException("Expected instanceof ConfigModule, but found: " + module);
+            throw new RuntimeException("期望的ConfigModule的实例,但发现：" + module);
         }
         return (ConfigModule) module;
     }

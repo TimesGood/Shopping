@@ -21,6 +21,7 @@ android {
             debuggable true
             //开启混淆开关
             minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //为BuildConfig.class文件添加新属性，指定主机服务器地址
             buildConfigField 'String','SERVER',getSERVER('debug','SERVER')
 

@@ -1,4 +1,4 @@
-package com.example.demo.api;
+package com.example.demo.mvp.model.api;
 
 
 
@@ -14,5 +14,6 @@ public interface APIService {
     //登录
     @POST("/api/UserLogin")
     Observable<CommonResult<?>> login(@Body RequestBody body);
+
 
 }

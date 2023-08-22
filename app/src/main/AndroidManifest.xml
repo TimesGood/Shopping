@@ -35,9 +35,9 @@
                 android:exported="false">
         </activity>
         <activity android:name=".mvp.view.ImageSelectActivity"/>
-<!--        <meta-data-->
-<!--            android:name="com.example.core.test.config.GlobalConfiguration"-->
-<!--            android:value="ConfigModule" />-->
+        <meta-data
+            android:name="com.example.demo.config.GlobalConfiguration"
+            android:value="ConfigModule" />
     </application>
 
 </manifest>

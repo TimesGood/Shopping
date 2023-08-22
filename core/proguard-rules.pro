@@ -1,24 +1,4 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
-
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
-
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# 该混淆作用于library
 #ProGuard（混淆）三大作用
 #一、压缩，默认开启，减少应用体积，移除未被使用的类和成员
 #-dontshrink 关闭压缩
@@ -54,11 +34,15 @@
 -optimizationpasses 5 # 代码混淆的压缩比例，值介于0-7，默认5
 -dontusemixedcaseclassnames # 混淆后类型都为小写
 -verbose # 混淆时记录日志
--printseeds seeds.txt # 生成原类名与混淆后类名的映射文件mapping.txt
--printusage unused.txt
+-printseeds seeds.txt # 列出未混淆的类和成员
+-printusage ussed.txt # 列出从apk中删除的代码
 -printmapping mapping.txt # 生成原类名与混淆后类名的映射文件mapping.txt
 -optimizations !code/simplification/artithmetic,!field # 指定混淆算法
 -keepattributes *Annotation*,Signature # 避免混淆注解、内部类、泛型、匿名类，可选：*Annotation*,InnerClasses,Signature,EnclosingMethod
+
+#################glide###############
+-keep public class * implements com.bumptech.glide.module.AppGlideModule
+-keep public class * implements com.bumptech.glide.module.LibraryGlideModule
 
 #枚举
 -keepclassmembers enum com.**.enums.* {
