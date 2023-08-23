@@ -16,8 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.core.base.AppFragment;
+import com.example.core.base.BaseFragment;
 import com.example.core.di.component.AppComponent;
 import com.example.demo.R;
+import com.example.demo.contract.TestContract;
+import com.example.demo.di.component.DaggerTestComponent;
+import com.example.demo.mvp.presenter.TestPresenter;
 import com.example.demo.mvp.view.ImageSelectActivity;
 import com.example.demo.mvp.view.adapter.CommonAdapter;
 import com.example.ext.adapter.BaseAdapter;
@@ -29,13 +33,18 @@ import java.util.List;
 /**
  * 首页界面
  */
-public class HomeFragment extends AppFragment implements BaseAdapter.OnItemClickListener{
+public class HomeFragment extends BaseFragment<TestPresenter> implements TestContract.View,BaseAdapter.OnItemClickListener{
     private RecyclerViewDecorator recyclerview;
     private CommonAdapter adapter;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-
+        DaggerTestComponent
+                .builder()
+                .appComponent(appComponent)
+                .view(this)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -87,7 +96,19 @@ public class HomeFragment extends AppFragment implements BaseAdapter.OnItemClick
                 startActivity(new Intent(getContext(), ImageSelectActivity.class));
                 break;
             case 1:
+                if(mPresenter == null) System.out.println("没有绑定P层");
+                mPresenter.test();
                 break;
         }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

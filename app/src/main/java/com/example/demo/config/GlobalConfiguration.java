@@ -15,7 +15,7 @@ import java.util.List;
 public final class GlobalConfiguration implements ConfigModule {
     @Override
     public void applyOptions(@NonNull Context context, @NonNull GlobalConfigModule.Builder builder) {
-        builder.baseurl("192.168.31.69:8080");
+        builder.baseurl("http://192.168.31.69:8081/");
     }
 
     @Override

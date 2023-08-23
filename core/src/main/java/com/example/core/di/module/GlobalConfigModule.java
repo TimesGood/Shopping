@@ -96,7 +96,7 @@ public class GlobalConfigModule {
     @Singleton
     @Provides
     HttpUrl provideBaseUrl() {
-        return HttpUrl.parse("https://api.github.com/");
+        return mApiUrl == null ? HttpUrl.parse("https://api.github.com/") : mApiUrl;
     }
     /**
      * 提供缓存文件
@@ -245,6 +245,7 @@ public class GlobalConfigModule {
             if (TextUtils.isEmpty(baseUrl)) {
                 throw new NullPointerException("BaseUrl can not be empty");
             }
+            HttpUrl parse = HttpUrl.parse(baseUrl);
             this.apiUrl = HttpUrl.parse(baseUrl);
             return this;
         }

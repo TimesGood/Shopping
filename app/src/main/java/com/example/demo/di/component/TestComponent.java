@@ -21,6 +21,8 @@ import com.example.core.di.component.AppComponent;
 import com.example.demo.contract.TestContract;
 import com.example.demo.di.module.TestModule;
 import com.example.demo.mvp.view.TestActivity;
+import com.example.demo.mvp.view.fragment.HomeFragment;
+
 import dagger.BindsInstance;
 import dagger.Component;
 
@@ -30,7 +32,7 @@ import dagger.Component;
 @ActivityScope
 @Component(modules = TestModule.class, dependencies = AppComponent.class)
 public interface TestComponent {
-    void inject(TestActivity activity);
+    void inject(HomeFragment activity);
 
     @Component.Builder
     interface Builder {

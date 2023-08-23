@@ -36,19 +36,15 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestCon
 
     }
 
-    @Override
-    public void test() {
-        System.out.println("响应结果");
-    }
 
     @Override
     public void setupActivityComponent(@NonNull @NotNull AppComponent appComponent) {
-        DaggerTestComponent
-                .builder()
-                .appComponent(appComponent)
-                .view(this)
-                .build()
-                .inject(this);
+//        DaggerTestComponent
+//                .builder()
+//                .appComponent(appComponent)
+//                .view(this)
+//                .build()
+//                .inject(this);
     }
 
     @Override

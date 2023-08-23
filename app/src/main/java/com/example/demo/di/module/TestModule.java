@@ -19,6 +19,7 @@ package com.example.demo.di.module;
 import com.example.demo.permission.Permission;
 import com.example.demo.contract.TestContract;
 import com.example.demo.mvp.model.TestModel;
+import com.google.gson.Gson;
 
 import dagger.Binds;
 import dagger.Module;
@@ -33,6 +34,12 @@ public abstract class TestModule {
     static Permission providePermissions(TestContract.View view) {
         return new Permission(view.getActivity());
     }
+    @Provides
+    static Gson provideGson() {
+        return new Gson();
+    }
     @Binds
     abstract TestContract.Model bindUserModel(TestModel model);
+
+
 }
