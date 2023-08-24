@@ -1,7 +1,6 @@
 package com.example.demo.mvp.view;
 
 import android.content.ContentResolver;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,14 +9,13 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.core.ThreadPoolManager;
+import com.example.core.util.ThreadPoolManager;
 import com.example.core.base.AppActivity;
 import com.example.core.di.component.AppComponent;
 import com.example.demo.R;
@@ -84,16 +82,19 @@ public final class ImageSelectActivity extends AppActivity
         ThreadPoolManager.getInstance().execute(this);
         mFloatingView.setOnClickListener(this);
     }
+    //菜单专辑选择
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_img_group,menu);
         return true;
     }
+    //菜单事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if(itemId == R.id.select_album) {
             if (mAllImage.isEmpty()) return super.onOptionsItemSelected(item);
+            //整理专辑分组
             ArrayList<AlbumInfo> data = new ArrayList<>(mAllAlbum.size() + 1);
             int count = 0;
             Set<String> keys = mAllAlbum.keySet();
@@ -105,6 +106,7 @@ public final class ImageSelectActivity extends AppActivity
                 }
             }
             data.add(0, new AlbumInfo(mAllImage.get(0), getString(R.string.menu_img_group), String.format(getString(R.string.menu_img_count), count), mAdapter.getData() == mAllImage));
+            //弹出底部抽屉，渲染数据
             if (mAlbumDialog == null) {
                 mAlbumDialog = new AlbumDialog.Builder(this)
                         .setListener((dialog, position, bean) -> {
@@ -199,6 +201,7 @@ public final class ImageSelectActivity extends AppActivity
             cursor.close();
         }
 
+        //延迟一段时间再渲染数据
         postDelayed(() -> {
             // 滚动回第一个位置
             mRecyclerView.scrollToPosition(0);

@@ -34,7 +34,7 @@ public class DemoActivity extends BaseActivity<DemoPresenter> implements DemoCon
 
     @Override
     public void setupActivityComponent(@NonNull @NotNull AppComponent appComponent) {
-        DaggerTestComponent
+        DaggerDemoComponent
                 .builder()
                 .appComponent(appComponent)
                 .view(this)
@@ -67,6 +67,54 @@ public class DemoActivity extends BaseActivity<DemoPresenter> implements DemoCon
         mPresenter.requestTest();
     }
 }
+//Fragment
+public class DemoFragment extends BaseFragment<DemoPresenter> implements DemoContract.View{
+    @Override
+    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
+        DaggerDemoComponent
+                .builder()
+                .appComponent(appComponent)
+                .view(this)
+                .build()
+                .inject(this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_demo;
+    }
+
+    @Override
+    public boolean useEventBus() {
+        return false;
+    }
+
+    @Override
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void setData(@Nullable Object data) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+}
+
 // Contract
 public interface DemoContract {
     interface Model extends IModel {

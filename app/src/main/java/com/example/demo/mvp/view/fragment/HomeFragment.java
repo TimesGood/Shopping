@@ -96,7 +96,6 @@ public class HomeFragment extends BaseFragment<TestPresenter> implements TestCon
                 startActivity(new Intent(getContext(), ImageSelectActivity.class));
                 break;
             case 1:
-                if(mPresenter == null) System.out.println("没有绑定P层");
                 mPresenter.test();
                 break;
         }

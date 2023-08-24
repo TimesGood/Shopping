@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * ================================================
- * Activity生命周期
+ * 框架内部实现的Activity生命周期
  * ================================================
  */
 @Singleton
@@ -139,6 +139,7 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
             //注册框架内部已实现的 Fragment 生命周期逻辑
             ((FragmentActivity) activity).getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycle.get(), true);
 
+            //开发者如果有自定义调整框架内部已实现的 Fragment 生命周期逻辑，执行调整
             if (mExtras.containsKey(IntelligentCache.getKeyOfKeep(ConfigModule.class.getName()))) {
                 @SuppressWarnings("unchecked")
                 List<ConfigModule> modules = (List<ConfigModule>) mExtras.get(IntelligentCache.getKeyOfKeep(ConfigModule.class.getName()));
@@ -158,6 +159,11 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
 
     }
 
+    /**
+     * 复用缓存中的ActivityDelegate
+     * @param activity
+     * @return
+     */
     private ActivityDelegate fetchActivityDelegate(Activity activity) {
         ActivityDelegate activityDelegate = null;
         if (activity instanceof IActivity) {
@@ -167,6 +173,11 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
         return activityDelegate;
     }
 
+    /**
+     * 获取Activity中提供的缓存
+     * @param activity
+     * @return
+     */
     @NonNull
     private Cache<String, Object> getCacheFromActivity(IActivity activity) {
         Cache<String, Object> cache = activity.provideCache();
