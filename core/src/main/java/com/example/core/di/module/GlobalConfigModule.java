@@ -81,6 +81,10 @@ public class GlobalConfigModule {
         return new Builder();
     }
 
+    /**
+     * 提供拦截器
+     * @return
+     */
     @Singleton
     @Provides
     @Nullable
@@ -89,7 +93,7 @@ public class GlobalConfigModule {
     }
 
     /**
-     * 提供 BaseUrl,默认使用 <"https://api.github.com/">
+     * 提供服务器地址,默认使用 <"https://api.github.com/">
      *
      * @return
      */
@@ -99,17 +103,16 @@ public class GlobalConfigModule {
         return mApiUrl == null ? HttpUrl.parse("https://api.github.com/") : mApiUrl;
     }
     /**
-     * 提供缓存文件
+     * 提供缓存文件夹
      */
     @Singleton
     @Provides
-    File provideCacheFile(Application application) {
+    File provideCacheDir(Application application) {
         return mCacheFile == null ? DataHelper.getCacheFile(application) : mCacheFile;
     }
 
     /**
      * 提供处理 Http 请求和响应结果的处理类
-     *
      * @return
      */
     @Singleton
@@ -118,7 +121,6 @@ public class GlobalConfigModule {
     GlobalHttpHandler provideGlobalHttpHandler() {
         return mHandler;
     }
-
 
     /**
      * 提供自定义Retrofit配置
@@ -201,6 +203,10 @@ public class GlobalConfigModule {
                 new SynchronousQueue<>(), Util.threadFactory("Arms Executor", false)) : mExecutorService;
     }
 
+    /**
+     * 提供在Repository获取Service之前的处理
+     * @return
+     */
     @Singleton
     @Provides
     @Nullable
@@ -208,12 +214,20 @@ public class GlobalConfigModule {
         return mObtainServiceDelegate;
     }
 
+    /**
+     * 设置日志打印级别
+     * @return
+     */
     @Singleton
     @Provides
     RequestInterceptor.Level providePrintHttpLogLevel() {
         return mPrintHttpLogLevel == null ? RequestInterceptor.Level.ALL : mPrintHttpLogLevel;
     }
 
+    /**
+     * 提供打印格式
+     * @return
+     */
     @Singleton
     @Provides
     FormatPrinter provideFormatPrinter() {

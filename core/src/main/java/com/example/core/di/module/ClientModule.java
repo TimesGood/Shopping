@@ -20,9 +20,11 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.core.net.GlobalHttpHandler;
+import com.example.core.net.interceptor.RequestInterceptor;
 import com.example.core.util.DataHelper;
 import com.google.gson.Gson;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import io.rx_cache2.internal.RxCache;
@@ -61,6 +63,8 @@ public abstract class ClientModule {
     static OkHttpClient.Builder provideClientBuilder() {
         return new OkHttpClient.Builder();
     }
+    @Binds
+    abstract Interceptor bindInterceptor(RequestInterceptor interceptor);
 
     /**
      * 提供 {@link Retrofit}
@@ -104,14 +108,13 @@ public abstract class ClientModule {
      */
     @Singleton
     @Provides
-    static OkHttpClient provideClient(Application application, @Nullable OkhttpConfiguration configuration, OkHttpClient.Builder builder,
+    static OkHttpClient provideClient(Application application, @Nullable OkhttpConfiguration configuration, OkHttpClient.Builder builder,Interceptor intercept,
                                       @Nullable List<Interceptor> interceptors, @Nullable GlobalHttpHandler handler, ExecutorService executorService) {
         builder
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 //日志拦截，设置打印日志的级别
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
-//                .addNetworkInterceptor(intercept);
+                .addNetworkInterceptor(intercept);
 
         if (handler != null) {
             builder.addInterceptor(chain -> chain.proceed(handler.onHttpRequestBefore(chain, chain.request())));

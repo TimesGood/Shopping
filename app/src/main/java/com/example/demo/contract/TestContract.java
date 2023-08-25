@@ -14,6 +14,6 @@ public interface TestContract {
         Observable<CommonResult<TokenVo>> test();
     }
     interface View extends IView {
-
+        Activity getActivity();
     }
 }

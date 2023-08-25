@@ -8,9 +8,12 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.core.base.delegate.AppLifecycles;
 import com.example.core.base.delegate.ConfigModule;
+import com.example.core.di.module.ClientModule;
 import com.example.core.di.module.GlobalConfigModule;
 
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 public final class GlobalConfiguration implements ConfigModule {
     @Override

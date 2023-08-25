@@ -2,6 +2,7 @@ package com.example.demo.mvp.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.demo.R;
 import com.example.demo.contract.TestContract;
 import com.example.demo.di.component.DaggerTestComponent;
 import com.example.demo.mvp.presenter.TestPresenter;
+import com.example.demo.mvp.view.DemoActivity;
 import com.example.demo.mvp.view.ImageSelectActivity;
 import com.example.demo.mvp.view.adapter.CommonAdapter;
 import com.example.ext.adapter.BaseAdapter;
@@ -30,12 +32,15 @@ import com.example.ext.viewgroup.RecyclerViewDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * 首页界面
  */
 public class HomeFragment extends BaseFragment<TestPresenter> implements TestContract.View,BaseAdapter.OnItemClickListener{
     private RecyclerViewDecorator recyclerview;
     private CommonAdapter adapter;
+
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -97,7 +102,12 @@ public class HomeFragment extends BaseFragment<TestPresenter> implements TestCon
                 break;
             case 1:
                 mPresenter.test();
+                System.out.println("测试-----------------："+Environment.getExternalStorageDirectory().getPath()+getContext().getPackageName());
                 break;
+            case 2:
+                startActivity(new Intent(getContext(), DemoActivity.class));
+                break;
+
         }
     }
 

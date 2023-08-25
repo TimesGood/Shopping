@@ -34,12 +34,7 @@ public abstract class TestModule {
     static Permission providePermissions(TestContract.View view) {
         return new Permission(view.getActivity());
     }
-    @Provides
-    static Gson provideGson() {
-        return new Gson();
-    }
     @Binds
     abstract TestContract.Model bindUserModel(TestModel model);
-
 
 }

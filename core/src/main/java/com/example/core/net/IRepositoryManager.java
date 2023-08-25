@@ -43,12 +43,14 @@ public interface IRepositoryManager {
 
     /**
      * 获取 {@link Context}
-     *
      * @return {@link Context}
      */
     @NonNull
     Context getContext();
 
+    /**
+     * 在传入Service之前，可做一些操作
+     */
     interface ObtainServiceDelegate {
 
         @Nullable

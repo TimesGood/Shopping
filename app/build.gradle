@@ -49,6 +49,7 @@ dependencies {
     api rootProject.ext.support["junit"]
     api rootProject.ext.support["test-ext"]
     api rootProject.ext.support["test-espresso"]
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 //    api rootProject.ext.support["constraintlayout"]
 //    api rootProject.ext.support["support-annotations"]
 

@@ -17,15 +17,20 @@ package com.example.core.di.component;
 
 import android.app.Application;
 
+import com.example.core.base.delegate.ConfigModule;
 import com.example.core.di.module.AppModule;
 import com.example.core.di.module.ClientModule;
 import com.example.core.di.module.GlobalConfigModule;
 import com.example.core.base.delegate.AppDelegate;
 import com.example.core.cache.Cache;
 import com.example.core.net.IRepositoryManager;
+import com.google.gson.Gson;
+
+import java.io.File;
 
 import dagger.BindsInstance;
 import dagger.Component;
+import okhttp3.OkHttpClient;
 
 import javax.inject.Singleton;
 
@@ -44,6 +49,25 @@ public interface AppComponent {
      * 用于管理网络请求层, 以及数据缓存层
      */
     IRepositoryManager repositoryManager();
+    /**
+     * 网络请求框架
+     */
+    OkHttpClient okHttpClient();
+    /**
+     * Json 序列化库
+     */
+    Gson gson();
+    /**
+     * 缓存文件根目录 (RxCache 和 Glide 的缓存都已经作为子文件夹放在这个根目录下), 应该将所有缓存都统一放到这个根目录下
+     * 便于管理和清理, 可在 {@link ConfigModule#applyOptions(Context, GlobalConfigModule.Builder)} 种配置
+     */
+    File cacheFile();
+    /**
+     * 用来存取一些整个 App 公用的数据, 切勿大量存放大容量数据, 这里的存放的数据和 {@link Application} 的生命周期一致
+     * @return {@link Cache}
+     */
+    Cache<String, Object> extras();
+
     void inject(AppDelegate delegate);
     @Component.Builder
     interface Builder {

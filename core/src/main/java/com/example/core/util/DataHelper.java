@@ -73,7 +73,7 @@ public class DataHelper {
      * @param key
      * @param value
      */
-    public static void setIntergerSF(Context context, String key, int value) {
+    public static void setIntegerSF(Context context, String key, int value) {
         if (mSharedPreferences == null) {
             mSharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         }
@@ -86,7 +86,7 @@ public class DataHelper {
      * @param key
      * @return
      */
-    public static int getIntergerSF(Context context, String key) {
+    public static int getIntegerSF(Context context, String key) {
         if (mSharedPreferences == null) {
             mSharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         }
@@ -104,9 +104,9 @@ public class DataHelper {
     }
 
     /**
-     * 清除Shareprefrence
+     * 清除SharedPreferences
      */
-    public static void clearShareprefrence(Context context) {
+    public static void clearSharedPreferences(Context context) {
         if (mSharedPreferences == null) {
             mSharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         }
@@ -114,7 +114,7 @@ public class DataHelper {
     }
 
     /**
-     * 将对象储存到sharepreference
+     * 将对象储存到SharedPreferences
      *
      * @param key
      * @param device
@@ -142,7 +142,7 @@ public class DataHelper {
     }
 
     /**
-     * 将对象从shareprerence中取出来
+     * 将对象从SharedPreferences中取出来
      *
      * @param key
      * @param <T>
@@ -179,7 +179,8 @@ public class DataHelper {
     }
 
     /**
-     * 返回缓存文件夹
+     * 返回系统管理的缓存文件夹
+     * 如果有外部存储，优先外部存储，否则内部存储
      */
     public static File getCacheFile(Context context) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -197,9 +198,9 @@ public class DataHelper {
 
     /**
      * 获取自定义缓存文件地址
-     *
+     * 项目包名
      * @param context
-     * @return
+     * @return 手机根目录+项目包名 例：/storage/emulated/0/com.example.xxx
      */
     public static String getCacheFilePath(Context context) {
         String packageName = context.getPackageName();
@@ -269,7 +270,7 @@ public class DataHelper {
         return true;
     }
 
-    public static String bytyToString(InputStream in) throws IOException {
+    public static String byteToString(InputStream in) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] buf = new byte[1024];
         while (in.read(buf) != -1) {
