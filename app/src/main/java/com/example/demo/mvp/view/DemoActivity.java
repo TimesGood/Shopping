@@ -36,6 +36,7 @@ public class DemoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 System.out.println("mDemoDaggerBaseA对象地址:"+mDemoDaggerBaseA);
                 System.out.println("mDemoDaggerBaseB对象地址:"+mDemoDaggerBaseB);
+                System.out.println("测试:"+mDemoDaggerBaseB);
             }
         });
         super.onCreate(savedInstanceState);
