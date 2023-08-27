@@ -19,10 +19,12 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 
 import javax.inject.Scope;
+import javax.inject.Singleton;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * 提供给Activity单例标识，与 {@link Singleton} 功能一致，自定义只是为了规范区分该单例的作用范围
  */
 @Scope
 @Documented

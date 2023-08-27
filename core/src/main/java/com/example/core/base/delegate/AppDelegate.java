@@ -16,6 +16,7 @@
 package com.example.core.base.delegate;
 
 import android.app.Application;
+import android.content.ComponentCallbacks2;
 import android.content.Context;
 import androidx.annotation.NonNull;
 
@@ -41,6 +42,11 @@ public class AppDelegate implements App, AppLifecycles {
 
     private Application mApplication;
     private AppComponent mAppComponent;
+
+    @Inject
+    @Named("AppComponentCallbacks")
+    protected ComponentCallbacks2 mAppComponentCallBacks;
+
     @Inject
     @Named("ActivityLifecycle")
     protected Application.ActivityLifecycleCallbacks mActivityLifecycle;
@@ -85,6 +91,8 @@ public class AppDelegate implements App, AppLifecycles {
         for (Application.ActivityLifecycleCallbacks lifecycle : mActivityLifecycles) {
             mApplication.registerActivityLifecycleCallbacks(lifecycle);
         }
+        //注册回调: 内存紧张时释放部分内存
+        mApplication.registerComponentCallbacks(mAppComponentCallBacks);
         //执行框架外部, 开发者扩展的 App onCreate 逻辑
         for (AppLifecycles lifecycle : mAppLifecycles) {
             lifecycle.onCreate(mApplication);

@@ -52,6 +52,7 @@ public class BaseApplication extends Application implements App {
             this.mAppDelegate.onCreate(this);
         }
     }
+
     /**
      * 在模拟环境中程序终止时会被调用
      */

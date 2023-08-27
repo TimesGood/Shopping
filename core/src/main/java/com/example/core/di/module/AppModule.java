@@ -16,6 +16,7 @@
 package com.example.core.di.module;
 
 import android.app.Application;
+import android.content.ComponentCallbacks2;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.core.cache.Cache;
 import com.example.core.cache.CacheType;
 import com.example.core.lifecycle.ActivityLifecycle;
+import com.example.core.lifecycle.AppComponentCallbacks;
 import com.example.core.lifecycle.FragmentLifecycle;
 import com.example.core.net.IRepositoryManager;
 import com.example.core.net.RepositoryManager;
@@ -68,10 +70,15 @@ public abstract class AppModule {
 
     @Binds
     abstract IRepositoryManager bindRepositoryManager(RepositoryManager repositoryManager);
+
+    @Binds
+    @Named("AppComponentCallbacks")
+    abstract ComponentCallbacks2 bindComponentCallbacks(AppComponentCallbacks appComponentCallbacks);
     @Binds
     @Named("ActivityLifecycle")
     abstract Application.ActivityLifecycleCallbacks bindActivityLifecycle(ActivityLifecycle activityLifecycle);
     @Binds
+    @Named("FragmentLifecycle")
     abstract FragmentManager.FragmentLifecycleCallbacks bindFragmentLifecycle(FragmentLifecycle fragmentLifecycle);
 
 

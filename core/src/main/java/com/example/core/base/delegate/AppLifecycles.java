@@ -17,6 +17,7 @@ package com.example.core.base.delegate;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
 
 import androidx.annotation.NonNull;
 
@@ -27,7 +28,34 @@ import androidx.annotation.NonNull;
 public interface AppLifecycles {
     void attachBaseContext(@NonNull Context base);
 
+    /**
+     * 程序创建时触发
+     * @param application
+     */
     void onCreate(@NonNull Application application);
 
+    /**
+     * 在模拟环境中程序被终止时调用
+     * 注意真机环境永远不会被调用
+     * @param application
+     */
     void onTerminate(@NonNull Application application);
+    /**
+     * 内存不够时触发
+     */
+//    void  onLowMemory();
+    /**
+     * 内存清理时调用
+     */
+//    void onTrimMemory(int level);
+    /**
+     * 配置被改变时调用
+     * 例：
+     *      屏幕方向改变时
+     *      设备语言修改
+     *      屏幕尺寸更改
+     * 总之，该函数可以监控设备的变化来对应用进行一定的调整
+     */
+//    void  onConfigurationChanged(Configuration newConfig);
+
 }

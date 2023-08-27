@@ -34,6 +34,7 @@ import com.example.core.util.Preconditions;
 import dagger.Lazy;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
     @Inject
     Cache<String, Object> mExtras;
     @Inject
+    @Named("FragmentLifecycle")
     Lazy<FragmentManager.FragmentLifecycleCallbacks> mFragmentLifecycle;
     @Inject
     Lazy<List<FragmentManager.FragmentLifecycleCallbacks>> mFragmentLifecycles;

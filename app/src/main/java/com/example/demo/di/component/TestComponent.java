@@ -20,8 +20,9 @@ import com.example.core.di.scope.ActivityScope;
 import com.example.core.di.component.AppComponent;
 import com.example.demo.contract.TestContract;
 import com.example.demo.di.module.TestModule;
-import com.example.demo.mvp.view.TestActivity;
 import com.example.demo.mvp.view.fragment.HomeFragment;
+
+import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
