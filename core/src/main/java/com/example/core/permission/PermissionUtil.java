@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.demo.permission;
+package com.example.core.permission;
 
 import android.os.Build;
 
@@ -36,7 +36,7 @@ public class PermissionUtil {
         throw new IllegalStateException("you can't instantiate me!");
     }
 
-    public static void requestPermission(PermissionObserver observer, RxPermissions rxPermissions, String... permissions) {
+    public static void requestPermission(DefaultPermissionObserver observer, RxPermissions rxPermissions, String... permissions) {
         if (permissions == null || permissions.length == 0) {
             return;
         }

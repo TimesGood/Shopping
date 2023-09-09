@@ -32,9 +32,8 @@ ext {
     ]
     //第三方依赖配置
     dependencies = [
-            //rx 6.0权限请求
+            //RxPermission3权限请求，官网：https://github.com/tbruyelle/RxPermissions
             "rxpermissions3"                       : "com.github.tbruyelle:rxpermissions:0.12",
-            "rxerrorhandler3"                      : "me.jessyan:rxerrorhandler:2.1.1",
             //network
             "okhttp"                               : "com.squareup.okhttp3:okhttp:4.2.0",
             "logging-interceptor"                  : "com.squareup.okhttp3:logging-interceptor:3.10.0",

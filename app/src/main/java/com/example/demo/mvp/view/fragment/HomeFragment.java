@@ -8,20 +8,14 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.common.util.IntentUtils;
-import com.example.core.base.AppFragment;
 import com.example.core.base.BaseFragment;
 import com.example.core.di.component.AppComponent;
 import com.example.demo.R;
@@ -32,8 +26,9 @@ import com.example.demo.mvp.view.DemoActivity;
 import com.example.demo.mvp.view.ImageSelectActivity;
 import com.example.demo.mvp.view.adapter.CommonAdapter;
 import com.example.demo.permission.Permission;
+import com.example.core.permission.DefaultPermissionObserver;
+import com.example.core.permission.PermissionUtil;
 import com.example.demo.permission.PermissionObserver;
-import com.example.demo.permission.PermissionUtil;
 import com.example.ext.adapter.BaseAdapter;
 import com.example.ext.dialog.MessageDialog;
 import com.example.ext.viewgroup.RecyclerViewDecorator;
@@ -122,10 +117,6 @@ public class HomeFragment extends BaseFragment<TestPresenter> implements TestCon
             case 3:
 //                permission.requestPermission(getActivity(),new String[]{Manifest.permission.CAMERA});
                 PermissionUtil.requestPermission(new PermissionObserver() {
-                    @Override
-                    public Context getContext() {
-                        return HomeFragment.this.getContext();
-                    }
 
                     @Override
                     public void onRequestPermissionSuccess() {
@@ -134,6 +125,10 @@ public class HomeFragment extends BaseFragment<TestPresenter> implements TestCon
                                 .setMessage("权限已通过，执行业务")
                                 .setListener(dialog -> IntentUtils.gotoPermission(getContext()))
                                 .show();
+                    }
+                    @Override
+                    public Context getContext() {
+                        return HomeFragment.this.getContext();
                     }
                 }, new RxPermissions(this), Manifest.permission.CAMERA);
                 break;

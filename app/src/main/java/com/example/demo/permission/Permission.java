@@ -7,9 +7,8 @@ import android.os.Build;
 import androidx.core.content.ContextCompat;
 
 import com.example.common.util.IntentUtils;
+import com.example.core.permission.Permissions;
 import com.example.ext.dialog.MessageDialog;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -34,7 +34,5 @@ dependencies {
     api rootProject.ext.support["test-ext"]
     api rootProject.ext.support["test-espresso"]
 
-//    api rootProject.ext.dependencies["rxpermissions"]
-//    api rootProject.ext.dependencies["rxerrorhandler"]
     api(rootProject.ext.dependencies["rxpermissions3"])
 }

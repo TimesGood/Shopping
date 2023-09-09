@@ -1,4 +1,4 @@
-package com.example.demo.permission;
+package com.example.core.permission;
 
 /**
  * 权限申请实体类
