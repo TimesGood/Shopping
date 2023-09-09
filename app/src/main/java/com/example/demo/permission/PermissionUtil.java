@@ -1,110 +1,61 @@
+/*
+ * Copyright 2017 JessYan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.demo.permission;
 
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.os.Build;
 
-import androidx.core.content.ContextCompat;
-
-import com.example.common.util.IntentUtils;
-import com.example.ext.dialog.MessageDialog;
-
-import org.jetbrains.annotations.NotNull;
+import com.tbruyelle.rxpermissions3.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 /**
- * 权限申请
+ * ================================================
+ * 权限请求工具类
+ * ================================================
  */
-public class Permission {
-    private static final int REQUEST_CODE = 1;
+public class PermissionUtil {
+    public static final String TAG = "Permission";
 
-    /**
-     *
-     * @param permissions
-     */
-    public void requestPermission(Activity activity,String[] permissions){
-        List<String> unPermission = getNotApplyPermission(activity,permissions);
-        //如果权限已全部授权，执行业务代码
-        if(unPermission.size() == 0) {
-//            applyListener.onRequestPermissionSuccess();
-            activity.onRequestPermissionsResult(REQUEST_CODE,permissions,new int[permissions.length]);
-        }else{
-            //有未授权的权限
-            List<String> refusePermission = getRefuse(activity,permissions);
-            //被拒绝过的权限，手动授权
-            if(refusePermission.size() > 0) {
-                new MessageDialog.Builder(activity)
-                        .setTitle("开启权限")
-                        .setMessage("权限未开启，请手动授予" + getPermissionHint(refusePermission))
-                        .setConfirm("去开启")
-                        .setListener(dialog -> IntentUtils.gotoPermission(activity))
-                        .show();
-            }else{
-                //为拒绝过申请授权
-                activity.requestPermissions(unPermission.toArray(new String[]{}),REQUEST_CODE);
+    private PermissionUtil() {
+        throw new IllegalStateException("you can't instantiate me!");
+    }
+
+    public static void requestPermission(PermissionObserver observer, RxPermissions rxPermissions, String... permissions) {
+        if (permissions == null || permissions.length == 0) {
+            return;
+        }
+
+        List<String> needRequest = new ArrayList<>();
+        for (String permission : permissions) { //过滤调已经申请过的权限
+            if (!rxPermissions.isGranted(permission)) {
+                needRequest.add(permission);
             }
         }
-    }
 
-    /**
-     * 权限授权结果处理
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
-    public boolean handlerPermission(Activity activity,int requestCode, String[] permissions, int[] grantResults){
-        boolean flag = true;
-        if(requestCode == REQUEST_CODE){
-            List<String> refuse = new ArrayList<>();
-            for(int i:grantResults){
-                int result = grantResults[i];
-                if(result != PackageManager.PERMISSION_GRANTED) refuse.add(permissions[i]);
-            }
-            //有权限被拒绝
-            if(refuse.size() != 0) {
-                new MessageDialog.Builder(activity)
-                        .setTitle("温馨提醒")
-                        .setMessage("权限拒绝后某些功能将不能使用，为了使用完整功能请打开"+getPermissionHint(refuse))
-                        .setConfirm("去开启")
-                        .setListener(dialog -> IntentUtils.gotoPermission(activity))
-                        .show();
-                flag = false;
-            }
+        if (needRequest.isEmpty()) {//全部权限都已经申请过，直接执行操作
+            observer.onRequestPermissionSuccess();
+        } else {//没有申请过,则开始申请
+            rxPermissions
+                    .requestEach(needRequest.toArray(new String[0]))
+                    .buffer(permissions.length)
+                    .subscribe(observer);
         }
-        return flag;
-    }
-    /**
-     * 获取未授权的权限
-     */
-    public List<String> getNotApplyPermission(Activity activity,String[] permission) {
-        List<String> refusePermissions = new ArrayList<>();
-        for (String p:permission) {
-            if(!(ContextCompat.checkSelfPermission(activity, p) == PackageManager.PERMISSION_GRANTED)) refusePermissions.add(p);
-        }
-        return refusePermissions;
-    }
-
-    /**
-     * 获取被拒绝的权限
-     */
-    public List<String> getRefuse(Activity activity,String[] permission) {
-        List<String> refusePermissions = new ArrayList<>();
-        for (String p : permission) {
-            if(activity.shouldShowRequestPermissionRationale(p)) refusePermissions.add(p);
-        }
-        return refusePermissions;
-    }
-
-    /**
-     * 权限获取回调
-     */
-    public interface ApplyListener {
-        /**
-         * 权限请求成功
-         */
-        void onRequestPermissionSuccess();
     }
 
     /**
@@ -112,7 +63,7 @@ public class Permission {
      * @param permissions 权限组
      * @return 消息
      */
-    public String getPermissionHint(List<String> permissions) {
+    public static String getPermissionHint(List<String> permissions) {
         if (permissions == null || permissions.isEmpty()) {
             return "获取权限失败，请手动授予权限";
         }
@@ -269,4 +220,6 @@ public class Permission {
         }
         return "";
     }
+
 }
+

@@ -43,6 +43,7 @@ public abstract class AppActivity extends AppCompatActivity implements IActivity
         return mCache;
     }
 
+
     @Override
     public boolean useFragment() {
         return true;

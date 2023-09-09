@@ -31,8 +31,8 @@ import dagger.Provides;
 @Module
 public abstract class TestModule {
     @Provides
-    static Permission providePermissions(TestContract.View view) {
-        return new Permission(view.getActivity());
+    static Permission providePermissions() {
+        return new Permission();
     }
     @Binds
     abstract TestContract.Model bindUserModel(TestModel model);
