@@ -39,22 +39,10 @@ public abstract class DefaultPermissionObserver implements Observer<List<Permiss
         }
         if (failurePermissions.size() > 0) {
             onRequestPermissionFailure(failurePermissions);
-//            new MessageDialog.Builder(getContext())
-//                    .setTitle("权限请求")
-//                    .setMessage("使用该功能需要" + PermissionUtil.getPermissionHint(failurePermissions)+"，请点击\"确定\"继续授权")
-//                    .setConfirm("确定")
-//                    .setListener(dialog -> IntentUtils.gotoPermission(getContext()))
-//                    .show();
         }
 
         if (askNeverAgainPermissions.size() > 0) {
             onRequestPermissionFailureWithAskNeverAgain(askNeverAgainPermissions);
-//            new MessageDialog.Builder(getContext())
-//                    .setTitle("权限请求")
-//                    .setMessage("权限未开启，请手动授予" + PermissionUtil.getPermissionHint(askNeverAgainPermissions))
-//                    .setConfirm("去开启")
-//                    .setListener(dialog -> IntentUtils.gotoPermission(getContext()))
-//                    .show();
         }
 
         if (failurePermissions.size() == 0 && askNeverAgainPermissions.size() == 0) {

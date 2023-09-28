@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
 public final class GlobalConfiguration implements ConfigModule {
     @Override
     public void applyOptions(@NonNull Context context, @NonNull GlobalConfigModule.Builder builder) {
-        builder.baseurl("http://192.168.31.69:8081/");
+        builder.baseurl("http://192.168.10.124:8081/");
     }
 
     @Override

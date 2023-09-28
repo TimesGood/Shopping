@@ -8,8 +8,11 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.core.api.CommonResult;
 import com.example.core.base.BaseActivity;
 import com.example.core.di.component.AppComponent;
+import com.example.demo.mvp.model.entity.HomeContentResult;
+import com.example.demo.mvp.model.entity.PmsPortalProductDetail;
 import com.example.demo.permission.Permission;
 import com.example.demo.R;
 import com.example.demo.di.component.DaggerTestComponent;
@@ -64,6 +67,16 @@ public class TestActivity extends BaseActivity<TestPresenter> implements TestCon
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    @Override
+    public void onContentSuccess(CommonResult<HomeContentResult> result) {
+
+    }
+
+    @Override
+    public void onProductDetailSuccess(CommonResult<PmsPortalProductDetail> result) {
+
     }
 
     @Override

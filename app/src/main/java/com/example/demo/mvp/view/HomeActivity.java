@@ -2,7 +2,6 @@ package com.example.demo.mvp.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +12,8 @@ import com.example.core.base.BaseActivity;
 import com.example.core.di.component.AppComponent;
 import com.example.demo.R;
 import com.example.demo.mvp.view.fragment.HomeFragment;
-import com.example.demo.mvp.view.fragment.Page1Fragment;
-import com.example.demo.mvp.view.fragment.Page2Fragment;
+import com.example.demo.mvp.view.fragment.ShopCartFragment;
+import com.example.demo.mvp.view.fragment.UserFragment;
 import com.example.ext.adapter.common.FragmentPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -27,6 +26,7 @@ public class HomeActivity extends BaseActivity implements NavigationBarView.OnIt
     private BottomNavigationView home_navigation;
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
+        System.out.println("策划师");
     }
 
     @Override
@@ -39,8 +39,8 @@ public class HomeActivity extends BaseActivity implements NavigationBarView.OnIt
         mViewPager = findViewById(R.id.main_body);
         fragmentPagerAdapter = new FragmentPagerAdapter<>(this);
         fragmentPagerAdapter.addFragment(new HomeFragment());
-        fragmentPagerAdapter.addFragment(new Page1Fragment());
-        fragmentPagerAdapter.addFragment(new Page2Fragment());
+        fragmentPagerAdapter.addFragment(new ShopCartFragment());
+        fragmentPagerAdapter.addFragment(new UserFragment());
         mViewPager.setAdapter(fragmentPagerAdapter);
         mViewPager.setCurrentItem(0);
         home_navigation = findViewById(R.id.home_navigation);
@@ -67,9 +67,9 @@ public class HomeActivity extends BaseActivity implements NavigationBarView.OnIt
         int itemId = item.getItemId();
         if(itemId == R.id.home)
             mViewPager.setCurrentItem(0);
-        else if(itemId == R.id.page1)
+        else if(itemId == R.id.shop_cart)
             mViewPager.setCurrentItem(1);
-        else if(itemId == R.id.page2)
+        else if(itemId == R.id.user)
             mViewPager.setCurrentItem(2);
         return true;
     }

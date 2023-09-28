@@ -37,6 +37,8 @@
         <activity
             android:name=".mvp.view.TestActivity"
             android:exported="false"></activity>
+        <activity android:name=".mvp.view.ProductDetailActivity"
+            android:exported="false"></activity>
         <activity android:name=".mvp.view.ImageSelectActivity" />
 
         <meta-data

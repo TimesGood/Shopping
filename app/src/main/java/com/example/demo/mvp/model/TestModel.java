@@ -6,6 +6,8 @@ import com.example.core.di.scope.ActivityScope;
 import com.example.core.net.IRepositoryManager;
 import com.example.demo.contract.TestContract;
 import com.example.demo.mvp.model.api.APIService;
+import com.example.demo.mvp.model.entity.HomeContentResult;
+import com.example.demo.mvp.model.entity.PmsPortalProductDetail;
 import com.example.demo.mvp.model.entity.TokenVo;
 import com.google.gson.Gson;
 
@@ -39,4 +41,12 @@ public class TestModel extends BaseModel implements TestContract.Model {
                 .login("test","123456");
     }
 
+    public Observable<CommonResult<HomeContentResult>> content(){
+        return mRepositoryManager.obtainRetrofitService(APIService.class).content();
+    }
+
+    @Override
+    public Observable<CommonResult<PmsPortalProductDetail>> productDetail(int id) {
+        return mRepositoryManager.obtainRetrofitService(APIService.class).productDetail(id);
+    }
 }

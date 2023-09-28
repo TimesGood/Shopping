@@ -43,6 +43,8 @@ ext {
             //glide图片加载
             "glide"                                : "com.github.bumptech.glide:glide:4.12.0",
             "compiler"                             : "com.github.bumptech.glide:compiler:4.12.0",
+            //banner轮播图
+            "banner"                               : "com.youth.banner:banner:1.4.10",
             //图片查看库
             "PhotoView"                            : "com.github.chrisbanes:PhotoView:2.3.0",
             //MPAndroidChart图表库

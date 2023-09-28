@@ -8,23 +8,35 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.common.util.IntentUtils;
+import com.example.core.api.CommonResult;
 import com.example.core.base.BaseFragment;
 import com.example.core.di.component.AppComponent;
 import com.example.demo.R;
 import com.example.demo.contract.TestContract;
 import com.example.demo.di.component.DaggerTestComponent;
+import com.example.demo.mvp.model.entity.HomeContentResult;
+import com.example.demo.mvp.model.entity.PmsBrand;
+import com.example.demo.mvp.model.entity.PmsPortalProductDetail;
+import com.example.demo.mvp.model.entity.PmsProduct;
 import com.example.demo.mvp.presenter.TestPresenter;
 import com.example.demo.mvp.view.DemoActivity;
 import com.example.demo.mvp.view.ImageSelectActivity;
+import com.example.demo.mvp.view.ProductDetailActivity;
 import com.example.demo.mvp.view.adapter.CommonAdapter;
+import com.example.demo.mvp.view.adapter.ImageAdapter;
 import com.example.demo.permission.Permission;
 import com.example.core.permission.DefaultPermissionObserver;
 import com.example.core.permission.PermissionUtil;
@@ -32,10 +44,14 @@ import com.example.demo.permission.PermissionObserver;
 import com.example.ext.adapter.BaseAdapter;
 import com.example.ext.dialog.MessageDialog;
 import com.example.ext.viewgroup.RecyclerViewDecorator;
+import com.example.ext.viewgroup.StatusLayout;
 import com.tbruyelle.rxpermissions3.RxPermissions;
+import com.youth.banner.Banner;
+import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -44,10 +60,16 @@ import javax.inject.Inject;
  */
 public class HomeFragment extends BaseFragment<TestPresenter> implements TestContract.View,BaseAdapter.OnItemClickListener{
     private RecyclerViewDecorator recyclerview;
-    private CommonAdapter adapter;
+    private ImageAdapter adapter;
+    private StatusLayout statusLayout;
+
+    private Banner banner;
 
     @Inject
     Permission permission;
+
+    public HomeFragment() {
+    }
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -71,28 +93,16 @@ public class HomeFragment extends BaseFragment<TestPresenter> implements TestCon
 
     @Override
     public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        adapter = new CommonAdapter(getActivity());
-        adapter.setOnItemClickListener(this);
         recyclerview = (RecyclerViewDecorator) findViewById(R.id.recyclerview);
+        statusLayout = findViewById(R.id.status_layout);
+//        banner = findViewById(R.id.banner);
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        List<String> listData = new ArrayList<>();
-        listData.add("查看手机图片");
-        listData.add("测试2");
-        listData.add("测试3");
-        listData.add("测试4");
-        listData.add("测试5");
-        listData.add("测试6");
-        listData.add("测试7");
-        listData.add("测试8");
-        listData.add("测试9");
-        adapter.setData(listData);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerview.setLayoutManager(manager);
-        recyclerview.setAdapter(adapter);
+        mPresenter.content();
+        statusLayout.setAnimResource(com.example.expand.R.raw.loading);
+
     }
 
     @Override
@@ -100,61 +110,59 @@ public class HomeFragment extends BaseFragment<TestPresenter> implements TestCon
 
     }
 
-
-    @Override
-    public void onItemClick(RecyclerView recyclerView, View v, int position) {
-        switch (v.getId()){
-            case 0:
-                startActivity(new Intent(getContext(), ImageSelectActivity.class));
-                break;
-            case 1:
-                mPresenter.test();
-                System.out.println("测试-----------------："+Environment.getExternalStorageDirectory().getPath()+getContext().getPackageName());
-                break;
-            case 2:
-                startActivity(new Intent(getContext(), DemoActivity.class));
-                break;
-            case 3:
-//                permission.requestPermission(getActivity(),new String[]{Manifest.permission.CAMERA});
-                PermissionUtil.requestPermission(new PermissionObserver() {
-
-                    @Override
-                    public void onRequestPermissionSuccess() {
-                        new MessageDialog.Builder(getContext())
-                                .setTitle("权限请求")
-                                .setMessage("权限已通过，执行业务")
-                                .setListener(dialog -> IntentUtils.gotoPermission(getContext()))
-                                .show();
-                    }
-                    @Override
-                    public Context getContext() {
-                        return HomeFragment.this.getContext();
-                    }
-                }, new RxPermissions(this), Manifest.permission.CAMERA);
-                break;
-
-        }
-    }
-
     @Override
     public void showLoading() {
-
+        statusLayout.show();
     }
 
     @Override
     public void hideLoading() {
+        statusLayout.hide();
+    }
 
+    /**
+     * 首页数据条目点击事件
+     * @param recyclerView
+     * @param v
+     * @param position
+     */
+    @Override
+    public void onItemClick(RecyclerView recyclerView, View v, int position) {
+//        mPresenter.productDetail(v.getId());
+        Intent intent = new Intent(getContext(),ProductDetailActivity.class);
+        intent.putExtra("id",v.getId());
+        startActivity(intent);
+    }
+
+    /**
+     * 首页数据请求成功处理
+     * @param result
+     */
+    @Override
+    public void onContentSuccess(CommonResult<HomeContentResult> result) {
+        List<PmsBrand> brandList = result.getData().getBrandList();
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.recyclerview_head_banner,null,false);
+        banner = layout.findViewById(R.id.banner);
+        banner.setImages(brandList);
+        banner.setImageLoader(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                Glide.with(context).load(((PmsBrand)path).getBigPic()).into(imageView);
+            }
+        });
+        List<PmsProduct> hotProductList = result.getData().getHotProductList();
+        adapter = new ImageAdapter(getContext());
+        adapter.setData(hotProductList);
+        adapter.setOnItemClickListener(this);
+        recyclerview.setAdapter(adapter);
+        recyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerview.addHeaderView(layout);
+        recyclerview.adjustSpanSize();
+        banner.start();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        boolean result = permission.handlerPermission(getActivity(), requestCode, permissions, grantResults);
+    public void onProductDetailSuccess(CommonResult<PmsPortalProductDetail> result) {
 
-        if(result){
-            System.out.println("处理业务");
-        }else{
-            System.out.println("被拒绝");
-        }
     }
 }

@@ -25,12 +25,12 @@ public abstract class AppActivity extends AppCompatActivity implements IActivity
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         int layoutId = getLayoutId();
         if(layoutId != 0){setContentView(layoutId);}
         initView(savedInstanceState);
         initData(savedInstanceState);
-        super.onCreate(savedInstanceState);
     }
 
     @NonNull
